@@ -1,6 +1,6 @@
 ### Using Object.keys
 
-```
+```typescript
 public isValid():boolean {
     var vocabulary = this.getVocabulary();
 
@@ -16,7 +16,7 @@ public isValid():boolean {
 
 Can be simplified to this:
 
-```
+```typescript
 public isValid():boolean {
     var vocabulary = this.getVocabulary();
     return Object.keys(vocabulary).every((key:string) => !!vocabulary[key]);
@@ -27,7 +27,7 @@ public isValid():boolean {
 
 From here
 
-```
+```typescript
 private filterAvailableTemplates():Template[] {
     var selectedTopics:{id:TopicId}[] = this.eventHandler.getSelectedTopics();
     var selectedActivityTypeId:ActivityTypeId = this.eventHandler.getSelectedActivityTypeId();
@@ -56,7 +56,7 @@ private filterAvailableTemplates():Template[] {
 To here
 
 
-```
+```typescript
 export function allTrue(...fns) {
     return (x) => fns.reduce((acc, fn) => acc && (acc = fn(x)), true);
 }
