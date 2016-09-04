@@ -1,6 +1,83 @@
 ### Using Object.keys
 
-```typescript
+Very often developers write a lot of unnecessary code. This makes the whole codebase very polluted with functions-wrappers, nested loops, nested conditions, etc. But all of this could have been omitted. Most of the time this happens because people do not know how to write cleaner code. Here I want to present a few examples from the real projects and propose a way of cleaning up a dirty solution.
+
+Let's start with, perhaps, the most common and prominent candidate for refactoring:
+
+```js
+element.addEventListener('click', e => process(e.target));
+
+// ...
+
+let y = '...';
+[1, 2, 3].map(function(x) {
+  return process(x, y);
+});
+
+// ...
+
+let btns = Array.from(document.querySelectorAll('.button'));
+btns.forEach(btn => btn.addEventListener('click', e => doAction(e.target)))
+```
+
+Can you see what is common among all of these examples? There is always an intermediate function. It does not matter whether it is a fat function of ES6 or an old-school `function`.
+
+Let's start with the first example. Here it is again:
+
+```js
+element.addEventListener('click', evt => process(evt.target));
+```
+
+This is what happens in it:
+
+ * we call `addEventListener` on `element`.
+ * in the callback we:
+    * get the `target` property from the event
+    * and pass it to the `process` function
+
+*Note: For the sake of simplicity, let's assume the `process` function alerts the value of a certain attribute of a DOM element*
+
+These are the problems I can see in it:
+
+ * The callback is very specific to DOM event. Nobody stops us from having `target` in other objects.
+ * There is an unnecessary anonymous function
+
+Let's start from retrieving an arbitrary property from an arbitrary object. The implementation of such function is quite straightforward:
+
+```js
+function prop(propName, obj) {
+  return obj[propName];
+}
+
+prop('target', evt) //> a DOM element
+```
+
+Also, we have to extract the value of the DOM element:
+
+```js
+function getAttr(attrName, elem) {
+  return elem.getAttribute(attrName);
+}
+
+getAttr('href', linkEl) //> http://...
+```
+
+Good! Let's think again about what is happening in the callback. This time step by step:
+
+ * get property `target` of the `evt`,
+ * read a value of the specified attribute of the target element of the event,
+ * process the value (`alert` it).
+
+We can see there is something like a conveyor where we have to provide `evt` at the beginning and at the end something will be alerted. In functional programming this is called `function composition`. Here is how it works:
+
+`x => f(g(x)) === compose(f, g)`
+`x => f(g(b(x))) === compose(f, g, b)`
+`x => f(...(z(x))...) === compose(f, ..., z)`
+
+You can probably see that there's no `x` on the right hand of the equations. The `compose` function returns another function that is waiting for the arguments for the outer right one.
+
+
+```js
 public isValid():boolean {
     var vocabulary = this.getVocabulary();
 
