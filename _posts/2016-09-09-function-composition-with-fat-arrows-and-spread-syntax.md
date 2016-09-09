@@ -5,7 +5,7 @@ date:        2016-09-09 22:20
 author:      Ivan Demchenko
 categories:  fp
 keywords:    "functional programming, javascript, es6, function composition, spread operator, refactoring, fat arrow"
-description: "This article is about the way you can simplify your code using spread operator and fat-arrow functions"
+desc:        "This article is about the way you can simplify your code using spread operator and fat-arrow functions"
 permalink:   function-composition-with-fat-arrows-and-spread-syntax
 ---
 

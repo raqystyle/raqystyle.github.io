@@ -53,6 +53,7 @@ author:     "{author}"
 categories: "{categories}"
 keywords:   "{keywords}"
 desc:       "{description}"
+permalink:  "{slug}"
 ---
 """
 
