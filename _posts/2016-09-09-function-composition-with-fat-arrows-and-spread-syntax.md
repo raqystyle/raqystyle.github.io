@@ -1,6 +1,6 @@
 ---
 layout:      post
-title:       "Implementation of function composition using spread operator and fat-arrow syntax"
+title:       "The implementation of function composition using spread operator and fat-arrow syntax"
 date:        2016-09-09 22:20
 author:      Ivan Demchenko
 categories:  fp
