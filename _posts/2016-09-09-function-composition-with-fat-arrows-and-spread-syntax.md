@@ -1,11 +1,12 @@
 ---
-layout:      "post"
+layout:      post
 title:       "Implementation of function composition using spread operator and fat-arrow syntax"
-date:        "2016-09-09 22:20"
-author:      "Ivan Demchenko"
-categories:  "fp"
+date:        2016-09-09 22:20
+author:      Ivan Demchenko
+categories:  fp
 keywords:    "functional programming, javascript, es6, function composition, spread operator, refactoring, fat arrow"
 description: "This article is about the way you can simplify your code using spread operator and fat-arrow functions"
+permalink:   function-composition-with-fat-arrows-and-spread-syntax
 ---
 
 In this note, I would like to demonstrate code refactoring of my implementation of the function that does function composition. We're going to use spread operator and fat-arrow functions.
