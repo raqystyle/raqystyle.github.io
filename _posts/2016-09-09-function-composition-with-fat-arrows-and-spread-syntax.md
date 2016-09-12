@@ -63,7 +63,7 @@ function comp() {
 }
 ```
 
-Okay, even better. Now, time to recall that wanted to use spread operator. Thus, this:
+Okay, even better. Now, it's time to recall that we wanted to use spread operator. So, this:
 
 ```js
 fn.apply(this, [].concat(res))
@@ -75,7 +75,7 @@ becomes this:
 fn(...[].concat(res))
 ```
 
-As the result of this transformation we have:
+As the result of the transformation we have:
 
 ```js
 function comp() {
@@ -104,10 +104,13 @@ function comp() {
 A small note about fat-arrow syntax: Such functions don't have their own `arguments` object, instead they refer to the one from the parent scope. But we don't care because we have spread operator:
 
 ```js
-const comp = (...fns) => (...args) => fns.reduceRight((res, fn) => fn(...[].concat(res)), args);
+const comp = (...fns) => (...args) =>
+  fns.reduceRight((res, fn) => fn(...[].concat(res)), args);
 ```
 
-Let's run our unit tests. We have them, right?
+_Upd:_ Imho, it's better to have name and arguments list on one line and function body on the next one with an indentation. Thus, you make your code looks a bit cleaner.
+
+Let's run our unit tests. We have them, right? ;)
 
 ```js
 const inc = x => x + 1;
