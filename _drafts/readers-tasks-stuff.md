@@ -85,8 +85,10 @@ const validateRequest = () =>
 
 ### Reading list
 
+* [Monad Transformers Explained](https://wiki.haskell.org/Monad_Transformers_Explained)
 * [A Gentle Introduction to Monad Transformers](https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md)
-
+* PDF: [Monad Transformers Step by Step](https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf)
+* [WikiBooks: Monad transformers](https://en.wikibooks.org/wiki/Haskell/Monad_transformers)
 
 
 
