@@ -1,6 +1,7 @@
 0. Setup
 ```js
 const Task = require('data.task');
+const Either = require('data.either');
 const Reader = require('fantasy-readers');
 const { lift, curry } = require('ramda');
 
@@ -51,16 +52,40 @@ app =
 app =
     lift(lift(join))(gimmiReader(100), gimmiReader(1000))
 ```
-3.1
+
+or
+
 ```js
 app =
     compose(lift, lift)(join)(gimmiReader(100), gimmiReader(1000))
 ```
 
+Anyway, we've got to the point where we have composition of lifts. This code will work just fine. However, if you stick more monads together, you need to lift as many times as many monads you have. In order to avoid this, we can use Monad Transformers. Don't mind the name, only sounds complicated.
+
+```js
+// this is a new type, new monad!
+const ReaderEither = Reader.ReaderT(Either);
+```
+
+It is like a normal `Reader`, the only difference is that `map` and `chain` takes you straight to the data that "inner" either holds. However, if you `run` it you'll get `Either` back.
+
+As such we can do now something like this:
+
+```
+// -- validateRequest :: ReaderT Env (Either String) String
+const validateRequest = () =>
+  ReaderEither(env =>
+    env.someData && env.someData.length
+      ? Either.Right(env.someData)
+      : Either.Left('The request should contain some data...')
+);
+```
 
 
 
+### Reading list
 
+* [A Gentle Introduction to Monad Transformers](https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md)
 
 
 
