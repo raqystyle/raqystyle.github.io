@@ -25,22 +25,22 @@ Can you see what is common among all of these examples? There is always an inter
 Let's start with the first example. Here it is again:
 
 ```js
-element.addEventListener('click', evt => process(evt.target));
+element.addEventListener('click', evt => process(evt.target.getAttribute('some-attr')));
 ```
 
 This is what happens in it:
 
- * we call `addEventListener` on `element`.
- * in the callback we:
-    * get the `target` property from the event
-    * and pass it to the `process` function
+*   we call `addEventListener` on `element`.
+*   in the callback we:
+    *   get the `target` property from the event
+    *   and pass it to the `process` function
 
 *Note: For the sake of simplicity, let's assume the `process` function alerts the value of a certain attribute of a DOM element*
 
 These are the problems I can see in it:
 
- * The callback is very specific to DOM event. Nobody stops us from having `target` in other objects.
- * There is an unnecessary anonymous function
+*   The callback is very specific to DOM event. Nobody stops us from having `target` in other objects.
+*   There is an unnecessary anonymous function
 
 Let's start from retrieving an arbitrary property from an arbitrary object. The implementation of such function is quite straightforward:
 
@@ -64,9 +64,9 @@ getAttr('href', linkEl) //> http://...
 
 Good! Let's think again about what is happening in the callback. This time step by step:
 
- * get property `target` of the `evt`,
- * read a value of the specified attribute of the target element of the event,
- * process the value (`alert` it).
+*   get property `target` of the `evt`
+*   read a value of the specified attribute of the target element of the event
+*   process the value (`alert` it).
 
 We can see there is something like a conveyor where we have to provide `evt` at the beginning and at the end something will be alerted. In functional programming this is called `function composition`. Here is how it works:
 
@@ -74,29 +74,60 @@ We can see there is something like a conveyor where we have to provide `evt` at 
 `x => f(g(b(x))) === compose(f, g, b)`
 `x => f(...(z(x))...) === compose(f, ..., z)`
 
-You can probably see that there's no `x` on the right hand of the equations. The `compose` function returns another function that is waiting for the arguments for the outer right one.
+You can probably see that there's no `x` on the right hand side of the equations. The `compose` function returns another function that is waiting for the arguments for the outer right one. Here is a simplified version of `compose` of three functions:
+
+```js
+function compose3(f, w, g) {
+  return function() {
+    return f(w(g.apply(this, arguments)));
+  };
+}
+```
+
+So, having all this in mind, how can we simplify our code? Here is one variant:
+
+```js
+element.addEventListener('click', compose3(process, getAttr('some-attr'), prop('target')));
+```
+
+We are almost there. In order for this to work we need to "curry" `getAttr` and `prop`. This means that after receiving the first argument our function will return another function that is will receive the second argument and so on until all the arguments are passed. This is called partial application. Only curried function can be applied partially.
+
+```js
+function prop(propName, e) {
+  return function(e) {
+    return e[propName];
+  };
+}
+
+function getAttr(attrName) {
+  return function(elem) {
+    return elem.getAttribute(attrName);
+  };
+}
+```
+
 
 
 ```js
 public isValid():boolean {
-    var vocabulary = this.getVocabulary();
+  var vocabulary = this.getVocabulary();
 
-    for (var name in vocabulary) {
-        if (!vocabulary[name]) {
-            return false;
-        }
+  for (var name in vocabulary) {
+    if (!vocabulary[name]) {
+      return false;
     }
+  }
 
-    return true;
+  return true;
 }
 ```
 
 Can be simplified to this:
 
 ```typescript
-public isValid():boolean {
-    var vocabulary = this.getVocabulary();
-    return Object.keys(vocabulary).every((key:string) => !!vocabulary[key]);
+public isValid(): boolean {
+  var vocabulary = this.getVocabulary();
+  return Object.keys(vocabulary).every(key => !!vocabulary[key]);
 }
 ```
 
@@ -106,7 +137,7 @@ From here
 
 ```typescript
 private filterAvailableTemplates():Template[] {
-    var selectedTopics:{id:TopicId}[] = this.eventHandler.getSelectedTopics();
+    var selectedTopics:Array<{id:TopicId}> = this.eventHandler.getSelectedTopics();
     var selectedActivityTypeId:ActivityTypeId = this.eventHandler.getSelectedActivityTypeId();
 
     // return all templates except...
@@ -134,34 +165,37 @@ To here
 
 
 ```typescript
-export function allTrue(...fns) {
+function allTrue(...fns) {
     return (x) => fns.reduce((acc, fn) => acc && (acc = fn(x)), true);
 }
 
-export function inArray<a>(xs:a[], y:a):boolean {
+function inArray<a>(xs:a[], y:a):boolean {
     return xs.indexOf(y) > -1;
 }
 
-export function props(id:string, xs:any[]) {
+function props(id:string, xs:any[]) {
     return xs.map((x) => x[id]);
 }
 
-private templateBoundedToActivity(providedId:any):Function {
+function templateBoundedToActivity(providedId:any):Function {
     return (template:Template):boolean => template.activityTypes.some(eq(providedId));
 }
 
-private templateBoundedToTopics(providedIds:any[]):Function {
+function templateBoundedToTopics(providedIds:any[]):Function {
     let ids = curry(props)('id');
     let inArr = curry(inArray);
     return (template:Template):boolean => ids(template.topics).some(inArr(providedIds));
 }
 
-private filterAvailableTemplates():Template[] {
+function filterAvailableTemplates():Template[] {
     let ids = curry(props)('id');
 
     let selectedTopicsIds:TopicId[] = ids(this.eventHandler.getSelectedTopics());
     let selectedActivityTypeId:ActivityTypeId = this.eventHandler.getSelectedActivityTypeId();
-    let checkTemplate = allTrue(this.templateBoundedToActivity(selectedActivityTypeId), this.templateBoundedToTopics(selectedTopicsIds));
+    let checkTemplate = allTrue(
+      templateBoundedToActivity(selectedActivityTypeId),
+      templateBoundedToTopics(selectedTopicsIds)
+    );
 
     return this.availableTemplates.filter(checkTemplate);
 }
