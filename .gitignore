@@ -3,3 +3,4 @@ _site
 *.lock
 .c9
 .DS_Store
+vendor/

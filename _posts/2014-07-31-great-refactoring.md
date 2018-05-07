@@ -7,19 +7,15 @@ categories: JavaScript refactoring
 keywords:   "JavaScript, refactoring"
 desc:       "My recent project needs refactoring. So in this article I want to write about the problems and my experience with refactoring of JavaScript code."
 ---
-A couple of days ago, I have finished the great refactoring of JavaScript part of our project.
+A couple of days ago, I have finished the great refactoring of JavaScript part of our project. In this post I want to share my experience.
 
-In one of my previous posts I just thrown a couple of words about the quality of project I started on. So, what was wrong? Here is the list:
+So, what was wrong? Here is the list:
 
-- *No documentation for ugly code.* I mean, good code usually doesn't need the documentation. But the problem is that the whole project doesn't have any documentation. Previous developer just told us "please, do not change anything here, here and here". Great!
-
-- *No naming convention.** You could easily find a function called "doThisBaby" or "doTheJob".
-
-- *No modules.* I mean, the cool thing is that "modules", sort to speak, were wrapped in self-invocation functions. But no [AMD](http://requirejs.org/docs/whyamd.html) or [CommomJS](http://wiki.commonjs.org/wiki/CommonJS) or anything else.
-
-- The good thing is that Bower is used. But digging into the project I found that a lot of jQuery *plugins were simply copy-pasted to files*. So, what does Bower do here?
-
-- *A lot of repetitions of the same functionality.* Even variables names. Simple copy-paste.
+* *No documentation for ugly code.* I mean, good code usually doesn't need the documentation. But the problem is that the whole project doesn't have any documentation. Previous developer just told us "please, do not change anything here, here and here". Great!
+* *No naming convention.** You could easily find a function called "doThisBaby" or "doTheJob".
+* *No modules.* I mean, the cool thing is that "modules", sort to speak, were wrapped in self-invocation functions. But no [AMD](http://requirejs.org/docs/whyamd.html) or [CommomJS](http://wiki.commonjs.org/wiki/CommonJS) or anything else.
+* The good thing is that Bower is used. But digging into the project I found that a lot of jQuery *plugins were simply copy-pasted to files*. So, what does Bower do here?
+* *A lot of repetitions of the same functionality.* Even variables names. Simple copy-paste.
 
 So I started with directories organisation. The main problem for other developers was to debug js-code because it was always minified. A "javascript-components" directory (in which Bower was putting components) was unreachable for a browser. I mean, we had the following structure:
 
@@ -175,7 +171,7 @@ define([
     'jquery', 'amplify', '../slider', '../popup'
 
 ], function($, amplify, slider, popup) {
- 
+
     amplify.subscribe('loginRegister:login:showDialog', showLoginRegisterDialog);
 
 ...
