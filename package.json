@@ -1,0 +1,27 @@
+{
+  "name": "raqystyle.github.io",
+  "version": "1.0.0",
+  "description": "This is a small start. This blog is rather a playground and storage of my thoughts, links and stuff.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raqystyle/raqystyle.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raqystyle/raqystyle.github.io/issues"
+  },
+  "homepage": "https://github.com/raqystyle/raqystyle.github.io#readme",
+  "dependencies": {
+    "trianglify": "^1.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3"
+  }
+}

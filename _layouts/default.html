@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
+---
+layout: essentials
+---
 
-  {% include head.html %}
+{% include header.html %}
 
-  <body>
+<main>
+  {{ content }}
+</main>
 
-    {% include header.html %}
-
-    <main>
-      {{ content }}
-    </main>
-
-    {% include footer.html %}
-
-    {% include scripts.html %}
-
-  </body>
-
-</html>
+{% include footer.html %}

@@ -1,10 +1,15 @@
 ---
-layout: default
+layout: essentials
 ---
 
 <header class="post-header">
+  <canvas id="fancy-bg"></canvas>
   <h1 class="post-title">{{ page.title }}</h1>
-  <small class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</small>
+  <small class="post-meta">
+    {{ page.date | date: "%b %-d, %Y" }}
+    •
+    <a href="/">{{ site.title }}</a>
+  </small>
 </header>
 
 <article class="post-content">
@@ -16,3 +21,5 @@ layout: default
   {% include disqus.html %}
 {% endif %}
 </footer>
+
+{% include footer.html %}

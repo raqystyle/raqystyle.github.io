@@ -15,5 +15,7 @@ host: 0.0.0.0
 port: 5000
 limit_posts: 100
 
+exclude: ["node_modules/","vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/"]
+
 plugins:
   - octopress-autoprefixer
