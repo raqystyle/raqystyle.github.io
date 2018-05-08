@@ -180,7 +180,7 @@ a.site-title {
     width: 100%;
   }
   .post-title {
-    max-width: 670px;
+    max-width: $content-width;
   }
   .post-title,
   .post-meta {
@@ -221,7 +221,4 @@ a.site-title {
   position: relative;
   border-top: solid 1px #ccc;
   padding: $spacing-unit;
-  max-width: $content-width;
-  margin-left: auto;
-  margin-right: auto;
 }
