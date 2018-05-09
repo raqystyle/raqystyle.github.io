@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './js/main.js',
+  entry: './js/src/main.js',
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'js'),

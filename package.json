@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/raqystyle/raqystyle.github.io#readme",
   "dependencies": {
+    "flyd": "^0.2.6",
+    "flyd-debouncetime": "^0.1.0",
     "trianglify": "^1.2.0"
   },
   "devDependencies": {
