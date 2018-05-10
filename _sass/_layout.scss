@@ -72,9 +72,11 @@ a.site-title {
 * Site footer
 */
 .site-footer {
-  background: #446CB3;
-  padding: ($spacing-unit * 2) 0;
-  color: #fff;
+  background: rgb(49, 49, 49);
+  padding: ($spacing-unit * 4) 0;
+  color: rgb(182, 182, 182);
+  margin-top: $spacing-unit * 4;
+  font-size: .8rem;
 
   .wrapper {
     flex-direction: column;
@@ -86,7 +88,10 @@ a.site-title {
   }
 
   a {
-    color: #fff;
+    color: rgb(182, 182, 182);
+    &:hover {
+      color: rgb(235, 235, 235);
+    }
   }
 }
 
@@ -122,29 +127,11 @@ a.site-title {
 
 }
 
-
-/**
-* Page content
-*/
-.home {
+.post-teaser {
   max-width: $content-width;
-  margin: 0 auto;
+  margin: 0 auto $spacing-unit;
   padding: 0 $spacing-unit;
-}
-
-.page-heading {
-  font-size: 20px;
-}
-
-.post-list {
-  margin: 0;
-  padding: 0;
   list-style: none;
-
-  > li {
-    border-bottom: dashed 1px #ccc;
-    padding-bottom: $spacing-unit;
-  }
 }
 
 .post-meta {
@@ -155,12 +142,6 @@ a.site-title {
 
 .post-link {
   display: block;
-}
-
-.rss-subscribe {
-  text-align: right;
-  color: $grey-color-dark;
-  font-size: .9rem;
 }
 
 /**
