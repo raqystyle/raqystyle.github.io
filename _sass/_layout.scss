@@ -13,54 +13,65 @@
 
 .site-header {
   box-shadow: 0px 5px 15px 0px rgba(0,0,0,.2);
-  padding: ($spacing-unit * 2) 0;
   background: #fff;
   position: relative;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: [pic] 87px [name] 36px [links] 41px;
+  grid-template-areas:
+    "pic"
+    "name"
+    "links";
+
+  @include whenMoreThan($on-palm) {
+    height: 160px;
+    grid-template-columns: [m1] auto [pic] 78px [name] 296px [links] 296px [m2] auto;
+    grid-template-rows: auto;
+    grid-template-areas: "m1 pic name links m2";
+  }
 
   #fancy-bg {
     position: absolute;
     top: 0;
-    width: 100%;
-    height: 166px;
+    z-index: 0;
   }
 
-  .wrapper {
-    position: relative;
-  }
+}
 
+#photo {
+  border-radius: 0.7rem;
+  max-width: $photo-width;
+  max-height: $photo-height;
+  grid-area: pic;
+  justify-self: center;
+  align-self: center;
+  z-index: 1;
   @include whenMoreThan($on-palm) {
-    padding: ($spacing-unit * 4) 0;
+    justify-self: start;
   }
-
-  &-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    line-height: 2;
-    @include whenMoreThan($on-palm) {
-      flex-direction: row;
-    }
-  }
-
-  #photo {
-    border-radius: 0.7rem;
-    max-width: $photo-width;
-    max-height: $photo-height;
-    @include whenMoreThan($on-palm) {
-      margin-right: 2rem;
-    }
-  }
-
 }
 
 a.site-title {
   font-size: 1.6rem;
   flex: 1;
   color: $header-text-color;
+  justify-self: center;
+  align-self: center;
+  grid-area: name;
+  z-index: 1;
+  @include whenMoreThan($on-palm) {
+    justify-self: start;
+  }
 }
 
 .site-nav {
+  grid-area: links;
+  justify-self: center;
+  align-self: center;
+  z-index: 1;
+  @include whenMoreThan($on-palm) {
+    justify-self: end;
+  }
   .page-link {
     color: $header-text-color;
   }
