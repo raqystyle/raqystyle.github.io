@@ -27,9 +27,9 @@ $base-font-size:     1rem;
 $base-line-height:   1.625rem;
 $small-font-size:    $base-font-size * 0.875;
 
-$spacing-unit:       (1.625rem / 2);
+$spacing-unit:       ($base-line-height / 2);
 @include whenMoreThan($on-palm) {
-  $spacing-unit:      1.625rem;
+  $spacing-unit:      $base-line-height;
 }
 
 $text-color:         #22313F;
