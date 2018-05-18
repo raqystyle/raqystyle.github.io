@@ -6,7 +6,7 @@ function drawBackground(target, width, height) {
     target.height=height;
     const pattern = Trianglify({width, height});
     pattern.canvas(target);
-    target.classList.add('visible'); 
+    // target.classList.add('visible'); 
 }
 
 module.exports = {
