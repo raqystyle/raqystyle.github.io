@@ -1,7 +1,7 @@
 # Site settings
 title: Ivan Demchenko's blog
 email: raqy.style@gmail.com
-description: Personal blog of Ivan Demchenko. Thoughts, ideas and experiments.
+description: This is my playground. I share my thoughts from time to time and experiment with JS and CSS.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://raqystyle.github.com" # the base hostname & protocol for your site
 twitter_username: raqystyle

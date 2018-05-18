@@ -86,19 +86,25 @@ a.site-title {
 * Site footer
 */
 .site-footer {
-  background: rgb(49, 49, 49);
-  padding: ($spacing-unit * 4) 0;
-  color: rgb(182, 182, 182);
+  background: $footer-bg-color;
+  padding: ($spacing-unit * 2) $spacing-unit;
+  color: $footer-text-color;
   margin-top: $spacing-unit * 4;
   font-size: .8rem;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: [contacts] auto [social] auto [description] auto;
+  grid-template-areas:
+    "pic"
+    "name"
+    "links";
 
-  .wrapper {
-    flex-direction: column;
-    text-align: center;
-    @include whenMoreThan($on-palm) {
-      text-align: left;
-      flex-direction: row;
-    }
+  @include whenMoreThan($on-tablet) {
+    padding-top: ($spacing-unit * 4);
+    padding-bottom: ($spacing-unit * 4);
+    grid-template-columns: [m1] auto [contacts] 223.3px [social] 223.3px [description] 223.3px [m2] auto;
+    grid-template-rows: auto;
+    grid-template-areas: "m1 contacts social description m2";
   }
 
   a {
@@ -109,36 +115,33 @@ a.site-title {
   }
 }
 
-.contact-list,
-.social-media-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.contact-list {
+  grid-area: contacts;
 }
 
-.footer-col {
-  flex: 1 0 auto;
-  padding-bottom: $spacing-unit;
-  margin-bottom: $spacing-unit;
-  border-bottom: dashed 1px #678cce;
+.social-media-list {
+  grid-area: social;
+}
 
-  &:first-child {
-    padding-top: 0;
+.description {
+  grid-area: description;
+}
+
+.social-media-list,
+.description {
+  margin-top: $spacing-unit;
+}
+
+.contact-list,
+.social-media-list,
+.description {
+  justify-self: center;
+  text-align: center;
+  @include whenMoreThan($on-tablet) {
     margin-top: 0;
+    text-align: left;
+    justify-self: start;
   }
-
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-
-  @include whenMoreThan($on-palm) {
-    flex: 1 0 33%;
-    border-bottom: none;
-    padding: 0;
-  }
-
 }
 
 .post-teaser {

@@ -1,44 +1,37 @@
 <footer class="site-footer">
 
-  <div class="wrapper">
+  <div class="contact-list">
+    <div><a href="/">{{ site.title }}</a></div>
+    <div><a href="mailto:{{ site.email }}">{{ site.email }}</a></div>
+  </div>
 
-    <ul class="contact-list footer-col">
-      <li><a href="/">{{ site.title }}</a></li>
-      <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-    </ul>
-
-    <ul class="social-media-list footer-col">
-      <li>Follow me:</li>
-      {% if site.github_username %}
-      <li>
-        <a href="https://github.com/{{ site.github_username }}">
-          <i class="icon">{% include gh-icon.html %}</i>
-          <span class="username">{{ site.github_username }}</span>
-        </a>
-      </li>
-      {% endif %}
-
-      {% if site.twitter_username %}
-      <li>
-        <a href="https://twitter.com/{{ site.twitter_username }}">
-          <i class="icon">{% include twitter-icon.html %}</i>
-          <span class="username">{{ site.twitter_username }}</span>
-        </a>
-      </li>
-      {% endif %}
-
-      <li>
-        <a href="{{ "/feed.xml" | prepend: site.baseurl }}">or via RSS</a>
-      </li>
-
-    </ul>
-
-    {% if site.description %}
-    <div class="footer-col">
-      {{ site.description }}
+  <div class="social-media-list">
+    Follow me:
+    {% if site.github_username %}
+    <div>
+      <a href="https://github.com/{{ site.github_username }}">
+        <i class="icon">{% include gh-icon.html %}</i>
+        <span class="username">{{ site.github_username }}</span>
+      </a>
     </div>
     {% endif %}
 
+    {% if site.twitter_username %}
+    <div>
+      <a href="https://twitter.com/{{ site.twitter_username }}">
+        <i class="icon">{% include twitter-icon.html %}</i>
+        <span class="username">{{ site.twitter_username }}</span>
+      </a>
+    </div>
+    {% endif %}
+
+    <a href="{{ "/feed.xml" | prepend: site.baseurl }}">or via RSS</a>
   </div>
+
+  {% if site.description %}
+  <div class="description">
+    {{ site.description }}
+  </div>
+  {% endif %}
 
 </footer>
